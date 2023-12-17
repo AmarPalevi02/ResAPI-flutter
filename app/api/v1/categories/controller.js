@@ -1,5 +1,10 @@
 const { StatusCodes } = require('http-status-codes')
-const { createCategories, showAll, updateCategories } = require('../../../service/mysql/categoriess')
+const {
+    createCategories,
+    showAll,
+    updateCategories,
+    deleteCategories
+} = require('../../../service/mysql/categoriess')
 
 const create = async (req, res, next) => {
     try {
@@ -37,8 +42,21 @@ const update = async (req, res, next) => {
     }
 }
 
+const destroy = async (req, res, next) => {
+    try {
+        const result = await deleteCategories(req)
+
+        res.status(StatusCodes.OK).json({
+            data: result
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     create,
     index,
-    update
+    update,
+    destroy
 }

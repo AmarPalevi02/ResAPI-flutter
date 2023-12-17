@@ -12,7 +12,6 @@ const createCategories = async (req) => {
         jenis
     } = req.body
 
-
     const result = await Categories.create({
         kBuku,
         judul,
@@ -47,7 +46,7 @@ const updateCategories = async (req) => {
 
     const check = await Categories.findByPk(id)
 
-    if(!check) throw new BadRequestError(`Tidak ada categories dengan id : ${id}`)
+    if (!check) throw new BadRequestError(`Tidak ada categories dengan id : ${id}`)
 
     const result = await Categories.update({
         kBuku,
@@ -57,7 +56,19 @@ const updateCategories = async (req) => {
         prodi,
         kondisi,
         jenis
-    }, {where: {id: id}})
+    }, { where: { id: id } })
+
+    return result
+}
+
+const deleteCategories = async (req) => {
+    const { id } = req.params
+
+    const result = await Categories.destroy({
+        where: {
+            id: id
+        }
+    })
 
     return result
 }
@@ -65,5 +76,6 @@ const updateCategories = async (req) => {
 module.exports = {
     createCategories,
     showAll,
-    updateCategories
+    updateCategories,
+    deleteCategories
 }
