@@ -31,7 +31,24 @@ const showAll = async () => {
     return result
 }
 
+const deletedraftCategories = async (req) => {
+    const { id } = req.params
+
+    const check = await DraftCategories.findByPk(id)
+
+    if (!check) throw new BadRequestError(`Tidask ada categories dengan id : ${id}`)
+
+    const result = await DraftCategories.destroy({
+        where: {
+            id: id
+        }
+    })
+
+    return result
+}
+
 module.exports = {
     createDraft,
-    showAll
+    showAll,
+    deletedraftCategories
 }

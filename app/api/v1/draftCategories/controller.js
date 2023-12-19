@@ -1,5 +1,5 @@
 const { StatusCodes } = require('http-status-codes')
-const { createDraft, showAll } = require('../../../service/mysql/daraftCategories')
+const { createDraft, showAll, deletedraftCategories } = require('../../../service/mysql/daraftCategories')
 
 const create = async (req, res, next) => {
     try {
@@ -25,7 +25,22 @@ const index = async (req, res, next) => {
     }
 }
 
+const destroy = async(req, res, next) => {
+    try {
+        const result = await deletedraftCategories(req)
+
+        res.status(StatusCodes.OK).json({
+            success: true,
+            message: 'Data behasil dihapus',
+            data: result
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     create,
-    index
+    index,
+    destroy
 }
