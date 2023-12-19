@@ -24,6 +24,10 @@ const chekingImage = async (id) => {
     if (!result) throw new NotFoundError(`Tidak ada gambar dengan id : ${id}`);
 }
 
+const showAllImage = async (req) => {
+    
+}
+
 module.exports = {
     createImages,
     generateUrlImage,

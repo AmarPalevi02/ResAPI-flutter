@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 })
 
 const imagesRouter = require('./app/api/v1/images/router')
-const categoriesRouter = require('./app/api/v1/categories/router')
+const categoriesRouter = require('./app/api/v1/categories/router');
 
 const v1 = '/api/v1'
 

@@ -1,4 +1,5 @@
 const Categories = require('../../api/v1/categories/model')
+const Image = require('../../api/v1/images/model')
 const { BadRequestError } = require('../../errors')
 
 const createCategories = async (req) => {
@@ -26,7 +27,13 @@ const createCategories = async (req) => {
 }
 
 const showAll = async () => {
-    const result = await Categories.findAll()
+    const result = await Categories.findAll({
+        include : [
+            {
+                model: Image
+            }
+        ]
+    })
 
     return result
 }
