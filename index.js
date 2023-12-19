@@ -24,11 +24,13 @@ app.get('/', (req, res) => {
 
 const imagesRouter = require('./app/api/v1/images/router')
 const categoriesRouter = require('./app/api/v1/categories/router');
+const daraftCategoriesRoute = require('./app/api/v1/draftCategories/router')
 
 const v1 = '/api/v1'
 
 app.use(`${v1}/cms`, imagesRouter)
 app.use(`${v1}/cms`, categoriesRouter)
+app.use(`${v1}/cms`, daraftCategoriesRoute)
 
 app.use(errorHendelerMiddlewares)
 app.use(NotFound)
