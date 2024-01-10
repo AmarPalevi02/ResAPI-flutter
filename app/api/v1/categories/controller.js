@@ -9,12 +9,15 @@ const {
 const create = async (req, res, next) => {
     try {
         const result = await createCategories(req)
+        console.log(result)
 
         res.status(StatusCodes.CREATED).json({
+            message: 'Successfully',
             data: result
         })
     } catch (error) {
         next(error)
+        console.log(error)
     }
 }
 
@@ -35,6 +38,7 @@ const update = async (req, res, next) => {
         const result = await updateCategories(req)
 
         res.status(StatusCodes.OK).json({
+            message: 'Successfully',
             data: result
         })
     } catch (error) {
@@ -47,6 +51,7 @@ const destroy = async (req, res, next) => {
         const result = await deleteCategories(req)
 
         res.status(StatusCodes.OK).json({
+            message: 'Successfully',
             data: result
         })
     } catch (error) {

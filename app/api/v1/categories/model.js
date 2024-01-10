@@ -1,53 +1,45 @@
 const { DataTypes } = require('sequelize')
-const Image = require('../images/model')
 const db = require('../../../configs/connection')
 
-const Categories = db.define('categories', {
+const CategoriesBuku = db.define('categories', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
     },
-    kBuku: {
+    noISBN: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
             notEmpty: {
-                msg: "Kode buku harus diisi"
+                msg: "Nomor induk wajib di isi"
             },
+            len: {
+                args: [4, 7],
+                msg: "Nomor NoISBN minimal harus memiliki panjang 7 karakter"
+            }
         }
     },
-    judul: {
+    namaPengarang: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
             notEmpty: {
-                msg: "Kode buku harus diisi"
+                msg: "Nama wajib di isi"
             },
+            len: {
+                args: [3],
+                msg: "Nama minimal harus memiliki panjang 3 karakter"
+            }
         }
     },
-    tglBeli: {
+    tglCetak: {
         type: DataTypes.DATE,
         allowNull: false,
         validate: {
             notNull: {
                 msg: 'Tanggal pembelian harus diisi.'
             }
-        }
-    },
-    imageId: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        references: {
-            model: Image,
-            key: 'id'
-        }
-    },
-    prodi: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            isIn: [['Teknik Mesin', 'Teknik Industri', 'Teknik Informatika', 'Teknik Sipil']]
         }
     },
     kondisi: {
@@ -57,18 +49,34 @@ const Categories = db.define('categories', {
             isIn: [['Baik', 'Rusak']]
         }
     },
+    harga: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+            notNull: {
+                msg: 'harga harus di isi.'
+            }
+        }
+    },
     jenis: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
             isIn: [['Fiksi', 'Non-Fiksi', 'Ensiklopedia', 'Referensi', 'Pengembangan']]
         }
-    }
+    },
+    hargaProduksi: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+            notNull: {
+                msg: 'harga harus di isi.'
+            }
+        }
+    },
 })
 
-Categories.belongsTo(Image, { foreignKey: 'imageId' });
-
-module.exports = Categories;
+module.exports = CategoriesBuku;
 
 (async () => {
     await db.sync()

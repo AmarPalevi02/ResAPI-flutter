@@ -8,6 +8,7 @@ const generateUrlImage = async (req) => {
 }
 
 const createImages = async (req) => {
+
     const result = await Image.create({
         fileName: req.file
             ? `uploads/${req.file.filename}`
@@ -22,10 +23,6 @@ const chekingImage = async (id) => {
     const result = await Image.findByPk(id);
 
     if (!result) throw new NotFoundError(`Tidak ada gambar dengan id : ${id}`);
-}
-
-const showAllImage = async (req) => {
-    
 }
 
 module.exports = {

@@ -31,7 +31,7 @@ const uploadMidleware = multer({
     limits: {
         fileSize: 3000000,
     },
-    fileFilter: fileFilter
+    // fileFilter: fileFilter
 })
 
-module.exports = uploadMidleware
+module.exports = uploadMidleware;

@@ -1,39 +1,36 @@
-const Categories = require('../../api/v1/categories/model')
-const Image = require('../../api/v1/images/model')
+const CategoriesBuku = require('../../api/v1/categories/model')
 const { BadRequestError } = require('../../errors')
 
 const createCategories = async (req) => {
     const {
-        kBuku,
-        judul,
-        tglBeli,
-        imageId,
-        prodi,
+        noISBN,
+        namaPengarang,
+        tglCetak,
         kondisi,
-        jenis
+        harga,
+        jenis,
+        hargaProduksi
     } = req.body
 
-    const result = await Categories.create({
-        kBuku,
-        judul,
-        tglBeli,
-        imageId,
-        prodi,
+    console.log(req)
+
+    const result = await CategoriesBuku.create({
+        noISBN,
+        namaPengarang,
+        tglCetak,
         kondisi,
-        jenis
+        harga,
+        jenis,
+        hargaProduksi
     })
+
+    console.log(result)
 
     return result
 }
 
 const showAll = async () => {
-    const result = await Categories.findAll({
-        include : [
-            {
-                model: Image
-            }
-        ]
-    })
+    const result = await CategoriesBuku.findAll()
 
     return result
 }
@@ -42,27 +39,27 @@ const updateCategories = async (req) => {
     const { id } = req.params
 
     const {
-        kBuku,
-        judul,
-        tglBeli,
-        imageId,
-        prodi,
+        noISBN,
+        namaPengarang,
+        tglCetak,
         kondisi,
-        jenis
+        harga,
+        jenis,
+        hargaProduksi
     } = req.body
 
-    const check = await Categories.findByPk(id)
+    const check = await CategoriesBuku.findByPk(id)
 
     if (!check) throw new BadRequestError(`Tidak ada categories dengan id : ${id}`)
 
-    const result = await Categories.update({
-        kBuku,
-        judul,
-        tglBeli,
-        imageId,
-        prodi,
+    const result = await CategoriesBuku.update({
+        noISBN,
+        namaPengarang,
+        tglCetak,
         kondisi,
-        jenis
+        harga,
+        jenis,
+        hargaProduksi
     }, { where: { id: id } })
 
     return result
@@ -71,7 +68,7 @@ const updateCategories = async (req) => {
 const deleteCategories = async (req) => {
     const { id } = req.params
 
-    const result = await Categories.destroy({
+    const result = await CategoriesBuku.destroy({
         where: {
             id: id
         }

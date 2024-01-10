@@ -14,9 +14,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(cors());
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
-app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
@@ -24,13 +22,13 @@ app.get('/', (req, res) => {
 
 const imagesRouter = require('./app/api/v1/images/router')
 const categoriesRouter = require('./app/api/v1/categories/router');
-const daraftCategoriesRoute = require('./app/api/v1/draftCategories/router')
+const userRouter = require('./app/api/v1/user/router')
 
 const v1 = '/api/v1'
 
 app.use(`${v1}/cms`, imagesRouter)
 app.use(`${v1}/cms`, categoriesRouter)
-app.use(`${v1}/cms`, daraftCategoriesRoute)
+app.use(`${v1}/cms`, userRouter)
 
 app.use(errorHendelerMiddlewares)
 app.use(NotFound)
